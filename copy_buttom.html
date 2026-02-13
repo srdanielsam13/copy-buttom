@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>One Click Copy</title>
+<style>
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: transparent;
+    font-family: Arial, sans-serif;
+  }
+  button {
+    padding: 14px 22px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+  }
+  button:hover {
+    opacity: 0.85;
+  }
+</style>
+</head>
+<body>
+
+<button onclick="copyText()">Copy Prompt</button>
+
+<script>
+function copyText() {
+  const text = `I will paste a job offer below.
+Analyze the content and map it to a predefined structured data model by interpreting the information and selecting the closest valid values.
+Return the result as a clean, logical list (one field per line).
+
+🔒 GLOBAL RULES
+● Interpret the job offer to select the closest matching value.
+● Use ONLY the predefined values where specified.
+● Do NOT invent new values
+● If no value reasonably matches, return an empty string: ""
+● Multiple applicable values → separate with semicolons ;
+● Output ONLY the final list — no explanations, no formatting commentary
+
+🧩 FIELDS & MAPPING RULES
+■ Job Position
+Extract the job title exactly as written
+
+■ Company
+Extract the organization name 
+
+■ Role Type (semantic classification required)
+Select one value ONLY from this fixed list:
+PROJECT MANAGER; Monitoring&Evaluation; CONSULTANT; Operations; PPP Specialist
+(Choose the closest role(s) based on responsibilities, not title alone)
+
+■ URL Job
+Extract the job posting URL if explicitly provided
+Otherwise → ""
+
+■ Location 
+Map locations mentioned to the closest applicable level(s):
+Abidjan (if located in Abidjan); Spain (if located in Spain); AFRICA (if located in any African country); EUROPE (if located in any European county); AMERICA (if located in any American country from north to south); ASIA-PACIFIC (If located in any Asian country, Oceania region, etc); MIDDLE-EAST (Any middle east country)
+Use only locations clearly stated or strongly implied.
+
+■ Reference Num.
+Extract any job reference number or vacancy ID
+Otherwise → ""
+
+■ Application Channel (semantic classification required)
+Select one or more values ONLY from:
+Company Website; LinkedIn; Novojob; EMAIL; Other
+Choose based on how the candidate is instructed to apply.
+
+■ Status
+Always return exactly:
+To Apply
+(No interpretation required)
+
+■ HR Contact
+Extract the name, email and/or phone of the HR or recruitment contact if explicitly provided
+If none is stated → ""
+
+■ Due Date
+Extract the exact application deadline 
+
+📑 JOB OFFER
+👉 [PASTE JOB OFFER HERE] 👈
+
+📤 REQUIRED OUTPUT FORMAT
+Return the result as a plain logical list, exactly in this order:
+Job Position:
+Company:
+Role Type:
+URL Job:
+Location:
+Reference Num.:
+Application Channel:
+Status:
+HR Contact:
+Due date:`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    alert("Copied to clipboard!");
+  });
+}
+</script>
+
+</body>
+</html>
